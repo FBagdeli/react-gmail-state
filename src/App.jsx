@@ -6,8 +6,7 @@ import './styles/App.css'
 
 function App() {
   // Use initialEmails for state
-  const [emalis, setEmails] = useState(initialEmails)
-
+  
   return (
     <div className="app">
       <Header />
@@ -41,7 +40,7 @@ function App() {
       </nav>
 
       <main className="emails">
-        {emalis.map((email) => {
+        {initialEmails.map((email) => {
           console.log(email.starred)
           let liClassName = 'email '
           const unreadClassName = 'unread '
