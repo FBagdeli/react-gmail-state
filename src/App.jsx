@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Header from './components/Header'
 import initialEmails from './data/emails'
 
@@ -5,7 +6,7 @@ import './styles/App.css'
 
 function App() {
   // Use initialEmails for state
-  console.log(initialEmails)
+  const [emalis, setEmails] = useState(initialEmails)
 
   return (
     <div className="app">
@@ -38,7 +39,43 @@ function App() {
           </li>
         </ul>
       </nav>
-      <main className="emails">{/* Render a list of emails here */}</main>
+
+      <main className="emails">
+        {emalis.map((email) => {
+          console.log(email.starred)
+          let liClassName = 'email '
+          const unreadClassName = 'unread '
+
+          let starClassName = 'star-checkbox '
+          const staredClassName = 'checked'
+          if(!email.read) {
+            liClassName += unreadClassName
+          }
+          if(email.starred){
+            starClassName += staredClassName
+          }
+          return(
+            <li key={email.id} className={liClassName}>
+              <div className="select">
+                <input
+                  className="select-checkbox"
+                  type="checkbox"
+                  value={email.read}
+                />
+              </div>  
+              <div className="star">
+                <input
+                  className={starClassName}
+                  type="checkbox"
+                  value={email.starred}
+                />
+              </div>
+              <div className="sender">{email.sender}</div>
+              <div className="title">{email.title}</div>
+            </li>
+          )
+        })}
+      </main>
     </div>
   )
 }
